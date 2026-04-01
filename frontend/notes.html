@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoteKeeper — My Notes</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="notes-page">
+    <!-- ── Top Navigation ────────────────────────────────────── -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <span class="logo-icon">📝</span>
+        <span>NoteKeeper</span>
+      </div>
+      <div class="nav-right">
+        <span class="welcome-msg" id="welcomeMsg"></span>
+        <button class="btn-outline" onclick="logout()" style="color: white">
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <!-- ── Main Layout ───────────────────────────────────────── -->
+    <div class="app-container">
+      <!-- Sidebar: create / edit form -->
+      <aside class="sidebar">
+        <h2 id="formTitle">New Note</h2>
+        <form id="noteForm" novalidate>
+          <input type="hidden" id="noteId" />
+          <div class="form-group">
+            <label for="noteTitle">Title</label>
+            <input
+              type="text"
+              id="noteTitle"
+              placeholder="Note title…"
+              maxlength="150"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="noteContent">Content</label>
+            <textarea
+              id="noteContent"
+              rows="10"
+              placeholder="Write your note here…"
+              required
+            ></textarea>
+          </div>
+          <div id="noteError" class="form-error hidden"></div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="saveNoteBtn">
+              Save Note
+            </button>
+            <button
+              type="button"
+              class="btn-secondary hidden"
+              id="cancelEditBtn"
+              onclick="cancelEdit()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </aside>
+
+      <!-- Main panel: notes grid -->
+      <main class="notes-panel">
+        <div class="notes-header">
+          <h2>My Notes</h2>
+          <div class="search-wrap">
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search notes…"
+              oninput="filterNotes()"
+            />
+          </div>
+        </div>
+
+        <div id="loadingMsg" class="state-msg">Loading your notes…</div>
+        <div id="notesList" class="notes-grid"></div>
+      </main>
+    </div>
+
+    <!-- ── Delete confirmation modal ─────────────────────────── -->
+    <div id="deleteModal" class="modal-overlay hidden">
+      <div class="modal-box">
+        <h3>Delete Note</h3>
+        <p>Are you sure you want to permanently delete this note?</p>
+        <div class="modal-actions">
+          <button class="btn-danger" id="confirmDeleteBtn">Delete</button>
+          <button class="btn-secondary" onclick="closeDeleteModal()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/notes.js"></script>
+  </body>
+</html>
